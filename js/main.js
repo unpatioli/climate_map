@@ -65,6 +65,14 @@ $.getJSON('doc/regionsRF.geojson', function(geo_data) {
                           "<p>Средняя температура января: " + v.jan + "</p>");
         }
       },
+
+      coordsToLatLng: function(coords) {
+        // Leaflet hack to properly display data to the East from Antimeridian
+        if (coords[0] < 0) {
+          coords[0] += 360;
+        }
+        return new L.LatLng(coords[1], coords[0], true);
+      },
     }).addTo(mymap);
   });
 });
